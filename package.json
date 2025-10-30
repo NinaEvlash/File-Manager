@@ -1,0 +1,21 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+  "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NinaEvlash/File-Manager.git"
+  },
+  "keywords": [],
+  "author": "NinaEvlash",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/NinaEvlash/File-Manager/issues"
+  },
+  "homepage": "https://github.com/NinaEvlash/File-Manager#readme"
+}
