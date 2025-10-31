@@ -1,5 +1,6 @@
 import readline from 'readline';
 import { goUP, goToDir } from './nwd/navigation.js';
+import { listDir } from './nwd/list.js';
 
 const args = process.argv.slice(2);
 const usernameArg = args.find(arg => arg.startsWith('--username='));
@@ -30,6 +31,8 @@ rl.on('line', (line) => {
     } else if (consoleText.startsWith('cd ')) {
       const pathTo = consoleText.slice(3).trim();
       goToDir(pathTo);
+    } else if (consoleText.startsWith('ls')) {
+      listDir();
     } else {
       console.log(`Invalid input!`);
     }
