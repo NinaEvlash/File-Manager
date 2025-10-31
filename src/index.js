@@ -1,5 +1,5 @@
 import readline from 'readline';
-import { goUP} from './nwd/navigation.js';
+import { goUP, goToDir } from './nwd/navigation.js';
 
 const args = process.argv.slice(2);
 const usernameArg = args.find(arg => arg.startsWith('--username='));
@@ -11,13 +11,11 @@ if (usernameArg) {
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
-  promt: 'fm> ',
+  prompt: 'fm> ',
 });
 
-const rootDir = process.cwd();
-
 console.log(`Welcome to the File Manager, ${username}!`);
-console.log(`You are currently in ${rootDir}`);
+console.log(`You are currently in ${process.cwd()}`);
 rl.prompt();
 
 
@@ -28,12 +26,16 @@ rl.on('line', (line) => {
       console.log(`Thank you for using File Manager, ${username}, goodbye!`);
       process.exit(0);
     } else if (consoleText === 'up') {
-      goUP(rootDir);
+      goUP();
+    } else if (consoleText.startsWith('cd ')) {
+      const pathTo = consoleText.slice(3).trim();
+      goToDir(pathTo);
     } else {
       console.log(`Invalid input!`);
     }
-  } catch {
+  } catch (err) {
     console.log('Operation failed!');
+    console.log(err.message);
   }
 
   console.log(`You are currently in ${process.cwd()}`);
