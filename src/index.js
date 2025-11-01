@@ -3,6 +3,7 @@ import { goUP, goToDir } from './nwd/navigation.js';
 import { listDir } from './nwd/list.js';
 import {  readFile } from './fs/read.js';
 import {  createFile, createFolder } from './fs/create.js';
+import {  renameFile } from './fs/rename.js';
 
 const args = process.argv.slice(2);
 const usernameArg = args.find(arg => arg.startsWith('--username='));
@@ -44,6 +45,11 @@ rl.on('line', async (line) => {
     } else if (consoleText.startsWith('mkdir ')) {
       const nameFolder = consoleText.slice(6).trim();
       await createFolder(nameFolder);
+    } else if (consoleText.startsWith('rn ')) {
+      const text = consoleText.slice(3).trim().split(' ');
+      const oldPathName = text[0];
+      const newFileName = text[1];
+      await renameFile(oldPathName, newFileName);
     } else {
       console.log(`Invalid input!`);
     }
