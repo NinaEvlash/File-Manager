@@ -21,7 +21,7 @@ export function goToDir(pathToDir) {
   } else {
     newPath = path.resolve(process.cwd(), pathToDir);
   }
-console.log('Trying to go to:', newPath); 
+  
   if (fs.existsSync(newPath) && fs.statSync(newPath).isDirectory()) {
     chdir(newPath);
   } else {

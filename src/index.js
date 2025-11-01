@@ -2,6 +2,7 @@ import readline from 'readline';
 import { goUP, goToDir } from './nwd/navigation.js';
 import { listDir } from './nwd/list.js';
 import {  readFile } from './fs/read.js';
+import {  createFile } from './fs/create.js';
 
 const args = process.argv.slice(2);
 const usernameArg = args.find(arg => arg.startsWith('--username='));
@@ -37,6 +38,9 @@ rl.on('line', async (line) => {
     } else if (consoleText.startsWith('cat ')) {
       const nameFile = consoleText.slice(4).trim();
       await readFile(nameFile);
+    } else if (consoleText.startsWith('add ')) {
+      const nameFile = consoleText.slice(4).trim();
+      await createFile(nameFile);
     } else {
       console.log(`Invalid input!`);
     }
