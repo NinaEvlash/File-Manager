@@ -15,5 +15,19 @@ export async function createFile (file) {
       console.log('Unexpected error:', err);
     }
   }
+}
 
+export async function createFolder (folder) {
+  const folderPath = resolve(process.cwd(), folder);
+  try {
+    await fs.access(folderPath);
+    console.log(`The folder "${folder}" already exists in ${process.cwd()}`);
+  } catch(err) {
+     if (err.code === 'ENOENT') {
+      await fs.mkdir(folderPath, { recursive: true });
+      console.log(`The folder "${folder}" has been created successfully!`);
+    } else {
+      console.log('Unexpected error:', err);
+    }
+  }
 }
