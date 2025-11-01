@@ -4,6 +4,7 @@ import { listDir } from './nwd/list.js';
 import {  readFile } from './fs/read.js';
 import {  createFile, createFolder } from './fs/create.js';
 import {  renameFile } from './fs/rename.js';
+import {  deleteFile } from './fs/delete.js';
 
 const args = process.argv.slice(2);
 const usernameArg = args.find(arg => arg.startsWith('--username='));
@@ -50,7 +51,10 @@ rl.on('line', async (line) => {
       const oldPathName = text[0];
       const newFileName = text[1];
       await renameFile(oldPathName, newFileName);
-    } else {
+    } else if (consoleText.startsWith('rm ')) {
+      const pathToFile = consoleText.slice(3).trim();
+      deleteFile(pathToFile);
+    }  else {
       console.log(`Invalid input!`);
     }
   } catch (err) {
