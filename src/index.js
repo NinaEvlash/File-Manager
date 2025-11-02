@@ -8,6 +8,8 @@ import {  deleteFile } from './fs/delete.js';
 import {  copyFile, moveFile } from './fs/copy.js';
 import { getEOL, getCPUS, getHomedir, getUsername, getArchitecture } from './os/os.js';
 import { calculateHash } from './hash/calcHash.js';
+import { compressFile } from './zip/compress.js';
+import { decompressFile } from './zip/decompress.js';
 
 const args = process.argv.slice(2);
 const usernameArg = args.find(arg => arg.startsWith('--username='));
@@ -50,9 +52,7 @@ rl.on('line', async (line) => {
       const nameFolder = consoleText.slice(6).trim();
       await createFolder(nameFolder);
     } else if (consoleText.startsWith('rn ')) {
-      const text = consoleText.slice(3).trim().split(' ');
-      const oldPathName = text[0];
-      const newFileName = text[1];
+      const [oldPathName, newFileName] = consoleText.slice(3).trim().split(' ');
       await renameFile(oldPathName, newFileName);
     } else if (consoleText.startsWith('rm ')) {
       const pathToFile = consoleText.slice(3).trim();
@@ -76,6 +76,12 @@ rl.on('line', async (line) => {
     } else if (consoleText.startsWith('hash ')) {
       const pathToFile = consoleText.slice(5).trim();
       calculateHash(pathToFile);
+    }  else if (consoleText.startsWith('compress ')) {
+      const [pathToFile, pathToCompressFile] = consoleText.slice(9).trim().split(' ');
+      await compressFile (pathToFile, pathToCompressFile);
+    }  else if (consoleText.startsWith('decompress ')) {
+      const [pathToFile, pathToDecompressFile] = consoleText.slice(11).trim().split(' ');
+      await decompressFile (pathToFile, pathToDecompressFile);
     }  else {
       console.log(`Invalid input!`);
     }
