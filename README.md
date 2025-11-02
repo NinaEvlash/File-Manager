@@ -34,6 +34,7 @@ Additional functionality includes OS information, file hash calculation, compres
    ```bash
    git clone https://github.com/NinaEvlash/File-Manager.git
    cd File-Manager
+   npm run start -- --username=<YourName>
 
 ## 🧭 Command Reference
 
