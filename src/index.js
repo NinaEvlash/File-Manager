@@ -7,6 +7,7 @@ import {  renameFile } from './fs/rename.js';
 import {  deleteFile } from './fs/delete.js';
 import {  copyFile, moveFile } from './fs/copy.js';
 import { getEOL, getCPUS, getHomedir, getUsername, getArchitecture } from './os/os.js';
+import { calculateHash } from './hash/calcHash.js';
 
 const args = process.argv.slice(2);
 const usernameArg = args.find(arg => arg.startsWith('--username='));
@@ -72,7 +73,10 @@ rl.on('line', async (line) => {
       getUsername();
     } else if (consoleText === 'os --architecture') {
       getArchitecture();
-    } else {
+    } else if (consoleText.startsWith('hash ')) {
+      const pathToFile = consoleText.slice(5).trim();
+      calculateHash(pathToFile);
+    }  else {
       console.log(`Invalid input!`);
     }
   } catch (err) {
