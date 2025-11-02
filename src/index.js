@@ -61,7 +61,7 @@ rl.on("line", async (line) => {
       await renameFile(oldPathName, newFileName);
     } else if (consoleText.startsWith("rm ")) {
       const pathToFile = consoleText.slice(3).trim();
-      deleteFile(pathToFile);
+      await deleteFile(pathToFile);
     } else if (consoleText.startsWith("cp ")) {
       const [pathToFile, pathToNewDirectory] = consoleText
         .slice(3)
@@ -86,7 +86,7 @@ rl.on("line", async (line) => {
       getArchitecture();
     } else if (consoleText.startsWith("hash ")) {
       const pathToFile = consoleText.slice(5).trim();
-      calculateHash(pathToFile);
+      await calculateHash(pathToFile);
     } else if (consoleText.startsWith("compress ")) {
       const [pathToFile, pathToCompressFile] = consoleText
         .slice(9)
