@@ -6,6 +6,7 @@ import {  createFile, createFolder } from './fs/create.js';
 import {  renameFile } from './fs/rename.js';
 import {  deleteFile } from './fs/delete.js';
 import {  copyFile, moveFile } from './fs/copy.js';
+import { getEOL, getCPUS, getHomedir, getUsername, getArchitecture } from './os/os.js';
 
 const args = process.argv.slice(2);
 const usernameArg = args.find(arg => arg.startsWith('--username='));
@@ -61,7 +62,17 @@ rl.on('line', async (line) => {
     }  else if (consoleText.startsWith('mv ')) {
       const [pathToFile, pathToNewDirectory] = consoleText.slice(3).trim().split(' ');
       await moveFile (pathToFile, pathToNewDirectory);
-    }  else {
+    } else if (consoleText === 'os --EOL') {
+      getEOL();
+    } else if (consoleText === 'os --cpus') {
+      getCPUS();
+    } else if (consoleText === 'os --homedir') {
+      getHomedir();
+    } else if (consoleText === 'os --username') {
+      getUsername();
+    } else if (consoleText === 'os --architecture') {
+      getArchitecture();
+    } else {
       console.log(`Invalid input!`);
     }
   } catch (err) {
