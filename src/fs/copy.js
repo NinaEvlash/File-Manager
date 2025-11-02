@@ -1,4 +1,5 @@
 import fs from 'fs';
+import fsPromises from 'fs/promises';
 import path, { resolve } from 'path';
 import process from 'process';
 import { pipeline } from 'stream';
@@ -37,5 +38,19 @@ export async function copyFile (pathToFile, pathToNewDirectory) {
   } catch (err) {
     console.error('Operation failed!', err.message);
   }
-  
+}
+
+export async function moveFile (pathToFile, pathToNewDirectory) {
+  try {
+    const pathFile = resolve(process.cwd(), pathToFile);
+    if (!fs.existsSync(pathFile)) {
+      console.error('Operation failed! Source file does not exist.');
+      return;
+    }
+    await copyFile (pathToFile, pathToNewDirectory);
+    await fsPromises.unlink(pathFile);
+    console.log(`File moved successfully!`);
+  } catch (err) {
+    console.error('Operation failed!', err.message);
+  }
 }
