@@ -5,6 +5,7 @@ import {  readFile } from './fs/read.js';
 import {  createFile, createFolder } from './fs/create.js';
 import {  renameFile } from './fs/rename.js';
 import {  deleteFile } from './fs/delete.js';
+import {  copyFile } from './fs/copy.js';
 
 const args = process.argv.slice(2);
 const usernameArg = args.find(arg => arg.startsWith('--username='));
@@ -54,6 +55,9 @@ rl.on('line', async (line) => {
     } else if (consoleText.startsWith('rm ')) {
       const pathToFile = consoleText.slice(3).trim();
       deleteFile(pathToFile);
+    }  else if (consoleText.startsWith('cp ')) {
+      const [pathToFile, pathToNewDirectory] = consoleText.slice(3).trim().split(' ');
+      await copyFile (pathToFile, pathToNewDirectory);
     }  else {
       console.log(`Invalid input!`);
     }
