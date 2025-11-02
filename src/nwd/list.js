@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 
 export function listDir() {
   const currentDir = process.cwd();
@@ -9,10 +9,10 @@ export function listDir() {
   const arrfiles = [];
 
   for (const item of items) {
-    if(item.isDirectory()) {
-      arrfolders.push({ Name: item.name, Type: 'directory' })
+    if (item.isDirectory()) {
+      arrfolders.push({ Name: item.name, Type: "directory" });
     } else if (item.isFile()) {
-      arrfiles.push({ Name: item.name, Type: 'file' })
+      arrfiles.push({ Name: item.name, Type: "file" });
     }
   }
   arrfolders.sort((a, b) => a.Name.localeCompare(b.Name));

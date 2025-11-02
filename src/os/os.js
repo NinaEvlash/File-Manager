@@ -1,4 +1,4 @@
-import os from 'os';
+import os from "os";
 
 export function getEOL() {
   const res = os.EOL;

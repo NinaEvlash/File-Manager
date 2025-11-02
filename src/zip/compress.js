@@ -1,10 +1,10 @@
-import fs from 'fs';
-import path, { resolve } from 'path';
-import process from 'process';
-import { createBrotliCompress } from 'zlib';
-import { pipeline } from 'stream/promises';
+import fs from "fs";
+import path, { resolve } from "path";
+import process from "process";
+import { createBrotliCompress } from "zlib";
+import { pipeline } from "stream/promises";
 
-export async function compressFile (pathToFile, pathToCompressFile) {
+export async function compressFile(pathToFile, pathToCompressFile) {
   try {
     const pathFile = resolve(process.cwd(), pathToFile);
     const pathCompressFile = resolve(process.cwd(), pathToCompressFile);
@@ -16,8 +16,8 @@ export async function compressFile (pathToFile, pathToCompressFile) {
     const brotli = createBrotliCompress();
 
     await pipeline(readable, brotli, writable);
-    console.log('File successfully compressed!');
+    console.log("File successfully compressed!");
   } catch (err) {
-    console.error('Compression failed!', err.message);
+    console.error("Compression failed!", err.message);
   }
 }
